@@ -1,26 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic Tac Toe</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Courgette|Raleway&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <div id= "container">
-        <h4>Welcome To TIC TAC TOE</h4>
+  <div class="wrapper">
+    <div class="jumbotron jumbotron-fluid">
+      <section class="welcome-section" id="welcome-section">
+        <div class="container">
+          <h1 class="display-4">Welcome to Tic-Tac-Toe</h1>
+          <p class="lead">The world's most interesting game!</p>
+        </div>
+        <div class="start-btn">
+          <span>Click the button to start game<br>
+            <button type="button" class="btn btn-primary btn-lg" id="start-btn">Start</button>
+          </span>
+        </div>
+      </section>
+      <section class="continue-to-game" id="continue-to-game">
+        <div class="contents container">
+          <span><button class="btn btn-info btn-lg" id="read-instruction-btn">See Instructions</button> </span>
+          <span><button class="btn btn-success btn-lg">Continue to game</button> </span>
+        </div>
+      </section>
+      <section class="read-instruction" id="read-instruction">
+        <ul class="list-group list-group-flush">
+          <h4 class="list-group-item">RULES FOR TIC-TAC-TOE</h4>
+          <li class="list-group-item">The game is played on a grid that's 3 squares by 3 squares.</li>
+          <li class="list-group-item">You are X, your friend (or the computer in this case) is O. Players take turns
+            putting their marks in empty squares.</li>
+          <li class="list-group-item">The first player to get 3 of her marks in a row (up, down, across, or diagonally)
+            is the winner.</li>
+          <li class="list-group-item">When all 9 squares are full, the game is over. If no player has 3 marks in a row,
+            the game ends in a tie.</li>
+          <li class="list-group-item"><button type="button" class="btn btn-success btn-lg"
+              id="return-to-continue-btn">Continue to game</button>
+          </li>
+        </ul>
+      </section>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  </div>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
 
-    <script src="src/app.js"></script>
+  <script src="src/app.js"></script>
 </body>
+
 </html>

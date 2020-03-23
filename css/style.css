@@ -1,0 +1,52 @@
+.wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-family: 'Courgette', cursive;
+  background-color: #eee;
+  height: 100vh;
+}
+
+.wrapper .jumbotron {
+  width: 40%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-height: 300px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 1rem;
+}
+
+.wrapper .jumbotron .lead {
+  font-size: 1.5rem;
+}
+
+.wrapper .jumbotron .welcome-section {
+  text-align: center;
+}
+
+.wrapper .jumbotron .continue-to-game {
+  text-align: center;
+}
+
+.wrapper .jumbotron section:not(.welcome-section) {
+  display: none;
+}
+
+.wrapper .jumbotron .read-instruction .list-group-item {
+  font-size: 1.2rem;
+}
+/*# sourceMappingURL=style.css.map */
