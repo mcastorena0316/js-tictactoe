@@ -63,7 +63,7 @@ const UI = () => {
 const Player = (name, marker) => {
   const getName = () => name;
   const getMarker = () => marker;
-
+ 
   return { getName, getMarker };
 };
 
@@ -85,9 +85,12 @@ const TicTacToe = () => {
     return winningArray;
   };
 
-  const checkWinner = (marker) => winningCombinations().some((combination) => {
-    return combination.every((combinationInner) => document.getElementById(`cell-${combinationInner}`).innerText === marker);
-  });
+  const checkWinner = (marker) => winningCombinations().some((combination) => combination.every((combinationInner) => document.getElementById(`cell-${combinationInner}`).innerText === marker));
+
+  const tieMove = () => {
+    const boardsChecked = document.querySelectorAll('.cell');
+    return Array.from(boardsChecked).every((element) => element.innerText !== '');
+  };
 
   const displayBoard = () => {
     function validateData(e) {
@@ -103,7 +106,8 @@ const TicTacToe = () => {
         const playerOneMarker = document.getElementById('player1-marker').value;
         const playerTwoName = document.getElementById('player2-name').value;
         const playerTwoMarker = document.getElementById('player2-marker').value;
-
+        document.querySelector('#player1-score').classList.add(playerOneMarker);
+        document.querySelector('#player2-score').classList.add(playerTwoMarker);
         const player1 = Player(playerOneName, playerOneMarker);
         const player2 = Player(playerTwoName, playerTwoMarker);
 
@@ -113,6 +117,13 @@ const TicTacToe = () => {
           ele.innerText = document.querySelector(`.playgame-section #${id}`).value;
         });
 
+        const getScore = (player) => {
+          let score = document.querySelector(`.${player.getMarker()}`).innerText;
+          const newScore = score.split(' ')[1];
+          document.querySelector(`.${player.getMarker()}`).innerText = Number(newScore)+1;
+          console.log(Number(newScore))
+        };
+
         const markerOnBoard = document.querySelectorAll('.cell');
         let currentPlayer = player1;
         const changeName = document.getElementById('get-turn-msg');
@@ -120,19 +131,21 @@ const TicTacToe = () => {
         markerOnBoard.forEach((element) => {
           element.addEventListener('click', (e) => {
             // eslint-disable-next-line no-param-reassign
-            element.innerHTML = currentPlayer.getMarker()
+            element.innerHTML = currentPlayer.getMarker();
             element.disabled = true;
 
             if (checkWinner(currentPlayer.getMarker())) {
               changeName.innerHTML = `Congratulations, ${currentPlayer.getName()}, you won the game!`;
-
+                getScore(currentPlayer);
               markerOnBoard.forEach((ele) => {
                 ele.disabled = true;
-              })
-
+              });
             } else {
               currentPlayer = currentPlayer === player1 ? player2 : player1;
-              changeName.innerHTML = `${currentPlayer.getName()}, is your turn!`
+              changeName.innerHTML = `${currentPlayer.getName()}, is your turn!`;
+              if (tieMove()) {
+                changeName.innerHTML = 'The game is a draw';
+              }
             }
 
 
@@ -147,7 +160,20 @@ const TicTacToe = () => {
     validateform.addEventListener('click', validateData);
   };
 
-  return { displayBoard };
+  const playAgain = () => {
+    const playAgainBtn = document.getElementById('play-again-btn');
+    playAgainBtn.addEventListener('click', resetGame);
+
+    function resetGame() {
+      const boardReset = document.querySelectorAll('.cell');
+      boardReset.forEach((x) => {
+        x.innerText = '';
+        x.disabled = false;
+      });
+    }
+  };
+
+  return { displayBoard,playAgain };
 };
 
 const ui = UI();
@@ -159,3 +185,4 @@ ui.checkMarker();
 
 const tictactoe = TicTacToe();
 tictactoe.displayBoard();
+tictactoe.playAgain();
