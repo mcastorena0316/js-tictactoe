@@ -80,8 +80,6 @@ const gameBoard = (() => {
 })();
 
 const TicTacToe = () => {
-
-
   const displayBoard = () => {
     function validateData(e) {
       const playersInput = document.querySelectorAll('.playgame-section .form-control');
@@ -105,14 +103,29 @@ const TicTacToe = () => {
           const { id } = ele;
           ele.innerText = document.querySelector(`.playgame-section #${id}`).value;
         });
+
+        const markerOnBoard = document.querySelectorAll('.cell');
+        let currentPlayer = player1;
+        const changeName = document.getElementById('get-turn-msg');
+        changeName.innerHTML = `${currentPlayer.getName()}, is your turn!`;
+        markerOnBoard.forEach((element) => {
+          element.addEventListener('click', (e) => {
+            // eslint-disable-next-line no-param-reassign
+            element.innerHTML = currentPlayer.getMarker();
+            currentPlayer = currentPlayer === player1 ? player2 : player1;
+            changeName.innerHTML = `${currentPlayer.getName()}, is your turn!`;
+            e.preventDefault();
+          });
+        });
       }
+
       e.preventDefault();
     }
     const validateform = document.getElementById('set-player-btn');
     validateform.addEventListener('click', validateData);
   };
 
-  return { displayBoard }
+  return { displayBoard };
 };
 
 const ui = UI();
