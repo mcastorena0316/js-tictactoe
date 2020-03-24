@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
+
 const UI = () => {
   const displaySection = (clickedBtn, sectionToShow) => {
     const allSections = document.querySelectorAll('.wrapper section');
@@ -61,11 +64,16 @@ const UI = () => {
 };
 
 const Player = (name, marker) => {
+  let score = 0;
   const getName = () => name;
   const getMarker = () => marker;
- 
-  return { getName, getMarker };
+  const increaseScore = () => score += 1;
+  const getScore = () => score;
+  return {
+    getName, getMarker, getScore, score, increaseScore,
+  };
 };
+
 
 const gameBoard = (() => {
   const showBoard = () => {
@@ -114,15 +122,9 @@ const TicTacToe = () => {
         const playersInputs = document.querySelectorAll('#boardgame-section .form-control');
         Array.from(playersInputs).forEach((ele) => {
           const { id } = ele;
+          // eslint-disable-next-line no-param-reassign
           ele.innerText = document.querySelector(`.playgame-section #${id}`).value;
         });
-
-        const getScore = (player) => {
-          let score = document.querySelector(`.${player.getMarker()}`).innerText;
-          const newScore = score.split(' ')[1];
-          document.querySelector(`.${player.getMarker()}`).innerText = Number(newScore)+1;
-          console.log(Number(newScore))
-        };
 
         const markerOnBoard = document.querySelectorAll('.cell');
         let currentPlayer = player1;
@@ -136,7 +138,8 @@ const TicTacToe = () => {
 
             if (checkWinner(currentPlayer.getMarker())) {
               changeName.innerHTML = `Congratulations, ${currentPlayer.getName()}, you won the game!`;
-                getScore(currentPlayer);
+              currentPlayer.increaseScore();
+              document.querySelector(`.${currentPlayer.getMarker()}`).innerText = `Score: ${currentPlayer.getScore()}`;
               markerOnBoard.forEach((ele) => {
                 ele.disabled = true;
               });
@@ -173,7 +176,7 @@ const TicTacToe = () => {
     }
   };
 
-  return { displayBoard,playAgain };
+  return { displayBoard, playAgain };
 };
 
 const ui = UI();
