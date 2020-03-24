@@ -32,34 +32,34 @@ const UI = () => {
     displaySection('playgame-btn', 'playgame-section');
   };
 
+  const checkMarker = () => {
+    const marker1 = document.getElementById('player1-marker');
+    marker1.addEventListener('keyup', inputChecker);
+
+    function inputChecker() {
+      if (marker1.value === 'X' || marker1.value === 'x') {
+        document.getElementById('player2-marker').value = 'O';
+      } else if (marker1.value === 'O' || marker1.value === 'o') {
+        document.getElementById('player2-marker').value = 'X';
+      } else {
+        alert("Select a valid marker");
+      }
+    }
+  };
+
   const displayBoard = () => {
     const validateform = document.getElementById('set-player-btn');
     validateform.addEventListener('click', validateData);
     function validateData(e) {
-
       const playersInput = document.querySelectorAll('.playgame-section .form-control');
       const playersEmptyInput = Array.from(playersInput).filter((item) => {
         return item.value === '';
       });
-      function checkMarker(marker) {
-        if (marker.value === 'X') {
-          document.getElementById('player2-marker').value = 'O';
-          document.getElementById('boardgame-section').style.display = 'block';
-          document.getElementById('playgame-section').style.display = 'none';
-        } else if (marker.value === 'O') {
-          document.getElementById('player2-marker').value = 'X';
-          document.getElementById('boardgame-section').style.display = 'block';
-          document.getElementById('playgame-section').style.display = 'none';
-        } else {
-          alert("Select a valid marker")
-        }
-      }
-
       if (playersEmptyInput.length > 0) {
         alert("Fill all your inputs");
       } else {
-        const marker1 = document.getElementById('player1-marker');
-        marker1.addEventListener('keyup', checkMarker(marker1));
+        document.getElementById('boardgame-section').style.display = 'block';
+        document.getElementById('playgame-section').style.display = 'none';
       }
 
       e.preventDefault();
@@ -72,6 +72,7 @@ const UI = () => {
     returnToContinueToGame,
     displayStartGame,
     displayBoard,
+    checkMarker,
   };
 };
 
@@ -80,4 +81,5 @@ ui.displayContinueToGame();
 ui.displayInstruction();
 ui.returnToContinueToGame();
 ui.displayStartGame();
+ui.checkMarker();
 ui.displayBoard();
