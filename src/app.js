@@ -34,36 +34,21 @@ const UI = () => {
 
   const checkMarker = () => {
     const marker1 = document.getElementById('player1-marker');
-    marker1.addEventListener('keyup', inputChecker);
 
     function inputChecker() {
-      if (marker1.value === 'X' || marker1.value === 'x') {
-        document.getElementById('player2-marker').value = 'O';
-      } else if (marker1.value === 'O' || marker1.value === 'o') {
-        document.getElementById('player2-marker').value = 'X';
+      const x = ['X', 'x'];
+      const o = ['O', 'o'];
+      if (x.includes(marker1.value)) {
+        document.getElementById('player2-marker').value = o[x.indexOf(marker1.value)];
+      } else if (o.includes(marker1.value)) {
+        document.getElementById('player2-marker').value = x[o.indexOf(marker1.value)];
+      } else if (marker1.value === '') {
+        document.getElementById('player2-marker').value = '';
       } else {
-        alert("Select a valid marker");
+        alert('Select a valid marker');
       }
     }
-  };
-
-  const displayBoard = () => {
-    const validateform = document.getElementById('set-player-btn');
-    validateform.addEventListener('click', validateData);
-    function validateData(e) {
-      const playersInput = document.querySelectorAll('.playgame-section .form-control');
-      const playersEmptyInput = Array.from(playersInput).filter((item) => {
-        return item.value === '';
-      });
-      if (playersEmptyInput.length > 0) {
-        alert("Fill all your inputs");
-      } else {
-        document.getElementById('boardgame-section').style.display = 'block';
-        document.getElementById('playgame-section').style.display = 'none';
-      }
-
-      e.preventDefault();
-    }
+    marker1.addEventListener('keyup', inputChecker);
   };
 
   return {
@@ -71,9 +56,63 @@ const UI = () => {
     displayInstruction,
     returnToContinueToGame,
     displayStartGame,
-    displayBoard,
     checkMarker,
   };
+};
+
+const Player = (name, marker) => {
+  const getName = () => name;
+  const getMarker = () => marker;
+
+  return { getName, getMarker };
+};
+
+const gameBoard = (() => {
+  const showBoard = () => {
+    let cell = '';
+    for (let i = 1; i <= 9; i += 1) {
+      cell += `<button class="cell cell-${i}" id="cell-${i}"></button>`;
+    }
+    document.getElementById('display-board').innerHTML = cell;
+  };
+
+  return { showBoard };
+})();
+
+const TicTacToe = () => {
+
+
+  const displayBoard = () => {
+    function validateData(e) {
+      const playersInput = document.querySelectorAll('.playgame-section .form-control');
+      const playersEmptyInput = Array.from(playersInput).filter((item) => item.value === '');
+      if (playersEmptyInput.length > 0) {
+        alert('Fill all your inputs');
+      } else {
+        gameBoard.showBoard();
+        document.getElementById('boardgame-section').style.display = 'block';
+        document.getElementById('playgame-section').style.display = 'none';
+        const playerOneName = document.getElementById('player1-name').value;
+        const playerOneMarker = document.getElementById('player1-marker').value;
+        const playerTwoName = document.getElementById('player2-name').value;
+        const playerTwoMarker = document.getElementById('player2-marker').value;
+
+        const player1 = Player(playerOneName, playerOneMarker);
+        const player2 = Player(playerTwoName, playerTwoMarker);
+
+        const playersInputs = document.querySelectorAll('#boardgame-section .form-control');
+        Array.from(playersInputs).forEach((ele) => {
+          const { id } = ele;
+          ele.innerText = document.querySelector(`.playgame-section #${id}`).value;
+        });
+      }
+      e.preventDefault();
+    }
+    const validateform = document.getElementById('set-player-btn');
+    validateform.addEventListener('click', validateData);
+  };
+
+  return { displayBoard }
 };
 
 const ui = UI();
@@ -82,4 +121,6 @@ ui.displayInstruction();
 ui.returnToContinueToGame();
 ui.displayStartGame();
 ui.checkMarker();
-ui.displayBoard();
+
+const tictactoe = TicTacToe();
+tictactoe.displayBoard();

@@ -47,45 +47,79 @@
           </li>
         </ul>
       </section>
-      <section class="playgame-section" id= "playgame-section">
+      <section class="playgame-section" id="playgame-section">
         <div class="row no-gutters">
           <div class="col-7">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text">Player 1:</span>
               </div>
-              <input type="text" placeholder="Input your name" class="form-control" id="player1-name" aria-describedby="basic-addon3">
+              <input type="text" placeholder="Input your name" class="form-control" id="player1-name">
             </div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text">Player 2:</span>
               </div>
-              <input type="text" placeholder="Input your name" class="form-control" id="player2-name" aria-describedby="basic-addon3">
+              <input type="text" placeholder="Input your name" class="form-control" id="player2-name">
             </div>
           </div>
-          <div class="col-5 pl-3" >
+          <div class="col-5 pl-3">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text">Marker 1:</span>
               </div>
-              <input type="text" placeholder="Input X or O" class="form-control" id="player1-marker" aria-describedby="basic-addon3">
+              <input type="text" placeholder="Input X or O" class="form-control" id="player1-marker">
             </div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text">Marker 2:</span>
               </div>
-              <input type="text" placeholder="Input X or O" class="form-control" id="player2-marker" aria-describedby="basic-addon3">
+              <input type="text" placeholder="Input X or O" class="form-control" id="player2-marker" disabled>
             </div>
           </div>
         </div>
         <div class="text-center">
-          <button class="btn btn-info btn-lg"  id="set-player-btn">Submit Players</button>
-       </div>
+          <button class="btn btn-info btn-lg" id="set-player-btn">Submit Players</button>
+        </div>
       </section>
       <section class="boardgame-section" id="boardgame-section">
-        <h2>Im on the board!! yeiiii</h2>
-      </section>
+        <div class="row">
+          <div class="col-3 flexed">
+            <span class="play-again-btn btn btn-warning btn-sm mb-2">
+              Play Again
+            </span>
+            <span class="exit-game-btn btn btn-danger btn-sm">
+              Exit Game
+            </span>
+          </div>
+          <div class="col-5 text-center">
+            <p class="text-center">Jane, your turn!</p>
+            <h5>Board</h5>
+            <div class="display-board" id="display-board">
+
+            </div>
+          </div>
+
+          <div class="col-4 flexed">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text form-control" id="player1-name"></span>
+                <span class="input-group-text form-control" id="player1-marker"></span>
+                <span class="input-group-text" id="player1-score">Score: O</span>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text form-control" id="player2-name"></span>
+                <span class="input-group-text form-control" id="player2-marker"></span>
+                <span class="input-group-text" id="player2-score">Score: 0</span>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
+    </section>
+  </div>
   </div>
 
 
