@@ -80,6 +80,15 @@ const gameBoard = (() => {
 })();
 
 const TicTacToe = () => {
+  const winningCombinations = () => {
+    const winningArray = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
+    return winningArray;
+  };
+
+  const checkWinner = (marker) => winningCombinations().some((combination) => {
+    return combination.every((combinationInner) => document.getElementById(`cell-${combinationInner}`).innerText === marker);
+  });
+
   const displayBoard = () => {
     function validateData(e) {
       const playersInput = document.querySelectorAll('.playgame-section .form-control');
@@ -111,9 +120,22 @@ const TicTacToe = () => {
         markerOnBoard.forEach((element) => {
           element.addEventListener('click', (e) => {
             // eslint-disable-next-line no-param-reassign
-            element.innerHTML = currentPlayer.getMarker();
-            currentPlayer = currentPlayer === player1 ? player2 : player1;
-            changeName.innerHTML = `${currentPlayer.getName()}, is your turn!`;
+            element.innerHTML = currentPlayer.getMarker()
+            element.disabled = true;
+
+            if (checkWinner(currentPlayer.getMarker())) {
+              changeName.innerHTML = `Congratulations, ${currentPlayer.getName()}, you won the game!`;
+
+              markerOnBoard.forEach((ele) => {
+                ele.disabled = true;
+              })
+
+            } else {
+              currentPlayer = currentPlayer === player1 ? player2 : player1;
+              changeName.innerHTML = `${currentPlayer.getName()}, is your turn!`
+            }
+
+
             e.preventDefault();
           });
         });
