@@ -5,7 +5,7 @@
 
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
-* [Authors](#contact)
+* [Authors](#authors)
 * [Acknowledgements](#acknowledgements)
 
 <!-- ABOUT THE PROJECT -->
