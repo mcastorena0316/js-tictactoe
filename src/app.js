@@ -1,6 +1,4 @@
-/* eslint-disable no-param-reassign */
 /* eslint-disable no-return-assign */
-
 const UI = () => {
   const displaySection = (clickedBtn, sectionToShow) => {
     const allSections = document.querySelectorAll('.wrapper section');
@@ -54,12 +52,17 @@ const UI = () => {
     marker1.addEventListener('keyup', inputChecker);
   };
 
+  const exitGame = () => {
+    displaySection('exit-game-btn', 'goodbye-section');
+  };
+
   return {
     displayContinueToGame,
     displayInstruction,
     returnToContinueToGame,
     displayStartGame,
     checkMarker,
+    exitGame,
   };
 };
 
@@ -165,8 +168,6 @@ const TicTacToe = () => {
 
   const playAgain = () => {
     const playAgainBtn = document.getElementById('play-again-btn');
-    playAgainBtn.addEventListener('click', resetGame);
-
     function resetGame() {
       const boardReset = document.querySelectorAll('.cell');
       boardReset.forEach((x) => {
@@ -174,7 +175,10 @@ const TicTacToe = () => {
         x.disabled = false;
       });
     }
+
+    playAgainBtn.addEventListener('click', resetGame);
   };
+
 
   return { displayBoard, playAgain };
 };
@@ -185,6 +189,7 @@ ui.displayInstruction();
 ui.returnToContinueToGame();
 ui.displayStartGame();
 ui.checkMarker();
+ui.exitGame();
 
 const tictactoe = TicTacToe();
 tictactoe.displayBoard();
