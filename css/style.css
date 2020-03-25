@@ -1,0 +1,85 @@
+.wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-family: 'Courgette', cursive;
+  background-color: #eee;
+  height: 100vh;
+}
+
+.wrapper .jumbotron {
+  width: 60%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-height: 300px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 1rem;
+}
+
+.wrapper .jumbotron .lead {
+  font-size: 1.5rem;
+}
+
+.wrapper .jumbotron .welcome-section {
+  text-align: center;
+}
+
+.wrapper .jumbotron .continue-to-game {
+  text-align: center;
+}
+
+.wrapper .jumbotron section:not(.welcome-section) {
+  display: none;
+}
+
+.wrapper .jumbotron .read-instruction .list-group-item {
+  font-size: 1.2rem;
+}
+
+.wrapper .jumbotron .boardgame-section .flexed {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.wrapper .jumbotron .boardgame-section .display-board {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  width: 180px;
+  margin: 0 auto;
+}
+
+.wrapper .jumbotron .boardgame-section .cell {
+  background-color: transparent;
+  height: 60px;
+  border: 3px solid #d4d0d0;
+  border-radius: 8px;
+  outline: none;
+}
+/*# sourceMappingURL=style.css.map */
