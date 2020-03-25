@@ -1,4 +1,6 @@
-# js-tictactoe
+# Tic Tac Toe With Javascript
+
+<div align="center"><img src="Images/tictactoe.jpg"></div>
 
 ## Table of Contents
 
@@ -34,12 +36,12 @@ Link for project specifications: [Odin-Project](https://www.theodinproject.com/c
 
  MaryAnn Chukwuka
  - Github: [@adaorachi](https://github.com/adaorachi)
-
+ - Linkedin: [MaryAnn Chukwuka](https://www.linkedin.com/in/adaorachi/) 
 **Author2**
 
   Melissa Castorena 
 - Github: [@mcastorena0316](https://github.com/mcastorena0316)
-
+- Linkedin: [Melissa Castorena](https://www.linkedin.com/in/melissa-castorena/) 
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
