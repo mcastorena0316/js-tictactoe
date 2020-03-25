@@ -1,6 +1,5 @@
 # js-tictactoe
 
-# library
 ## Table of Contents
 
 
@@ -17,6 +16,7 @@ In this project, we recreate the game TicTacToe to play in a browser using Javas
 
 Live version of the project: [Live version](https://raw.githack.com/mcastorena0316/js-tictactoe/logic/index.html)
 
+Project Link: [JS-TICTACTOE](https://github.com/mcastorena0316/js-tictactoe)
 
 Link for project specifications: [Odin-Project](https://www.theodinproject.com/courses/javascript/lessons/tic-tac-toe-javascript)
 
@@ -24,6 +24,7 @@ Link for project specifications: [Odin-Project](https://www.theodinproject.com/c
 
 *   HTML5
 *   SCSS
+*   Bootstrap
 *   Javascript
 
 <!-- CONTACT -->
@@ -35,12 +36,9 @@ Link for project specifications: [Odin-Project](https://www.theodinproject.com/c
  - Github: [@adaorachi](https://github.com/adaorachi)
 
 **Author2**
+
   Melissa Castorena 
 - Github: [@mcastorena0316](https://github.com/mcastorena0316)
-
-
-Project Link: [JS-TICTACTOE](https://github.com/mcastorena0316/js-tictactoe)
-
 
 
 <!-- ACKNOWLEDGEMENTS -->
