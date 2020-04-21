@@ -129,7 +129,7 @@ const Game = () => {
         if (checkWinner(currentPlayer.getMarker())) {
           changeName.innerHTML = `Congratulations, ${currentPlayer.getName()}, you won the game!`;
           currentPlayer.increaseScore();
-          document.querySelector(`.${currentPlayer.getMarker()}`).innerText = `Score: ${currentPlayer.getScore()}`;
+          document.querySelector(`#${currentPlayer.getName().toLowerCase()}-score`).innerText = `Score: ${currentPlayer.getScore()}`;
           markerOnBoard.forEach((ele) => { ele.disabled = true; });
         } else {
           currentPlayer = currentPlayer === player1 ? player2 : player1;
