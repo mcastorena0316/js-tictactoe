@@ -1,5 +1,4 @@
 import UI from './ui';
-import Game from './game';
 
 
 const ui = UI();
@@ -8,7 +7,5 @@ ui.displayInstruction();
 ui.returnToContinueToGame();
 ui.displayStartGame();
 ui.checkMarker();
+ui.playGame();
 ui.exitGame();
-
-const game = Game();
-game.playGame();

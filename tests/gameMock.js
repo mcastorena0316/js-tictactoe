@@ -108,7 +108,12 @@ const GameMock = () => {
     validateform.addEventListener('click', handleClickedSubmitPlayer());
   };
 
-  return { playGame, handleCellSwapTurns, changeTurns };
+  return {
+    playGame,
+    handleCellSwapTurns,
+    changeTurns,
+    handleClickedSubmitPlayer,
+  };
 };
 
 export default GameMock;

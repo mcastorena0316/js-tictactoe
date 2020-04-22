@@ -1,3 +1,11 @@
+// eslint-disable-next-line import/no-cycle
+import Game from './game';
+import gameBoard from './gameBoard';
+import Player from './player';
+
+const game = Game();
+
+
 const UI = () => {
   const displaySection = (clickedBtn, sectionToShow) => {
     const allSections = document.querySelectorAll('.wrapper section');
@@ -62,6 +70,55 @@ const UI = () => {
     displaySection('exit-game-btn', 'goodbye-section');
   };
 
+  // eslint-disable-next-line consistent-return
+  const validateData = (e) => {
+    let playerArray = [];
+    const playersInput = document.querySelectorAll('.playgame-section .form-control');
+    const playersEmptyInput = Array.from(playersInput).filter((item) => item.value === '');
+    if (playersEmptyInput.length > 0) {
+      showErrorMsg('.game-error-msg', 'error-inputs', 'Please fill all inputs');
+    } else {
+      gameBoard.renderBoard();
+      document.getElementById('boardgame-section').style.display = 'block';
+      document.getElementById('playgame-section').style.display = 'none';
+
+      const player1 = Player(game.getEleValue('player1-name'), game.getEleValue('player1-marker'));
+      const player2 = Player(game.getEleValue('player2-name'), game.getEleValue('player2-marker'));
+
+      const playersInputs = document.querySelectorAll('#boardgame-section .form-control');
+      Array.from(playersInputs).forEach((ele) => {
+        const { id } = ele;
+        ele.innerText = document.querySelector(`.playgame-section #${id}`).value;
+      });
+
+      document.getElementById('player1-score').classList.add(`${player1.getMarker()}`);
+      document.getElementById('player2-score').classList.add(`${player2.getMarker()}`);
+      game.handleCellSwapTurns(player1, player2);
+      playerArray = [player1, player2];
+      return playerArray;
+    }
+    e.preventDefault();
+    return playerArray;
+  };
+
+  const playGame = () => {
+    const validateform = document.getElementById('set-player-btn');
+    validateform.addEventListener('click', validateData);
+  };
+
+  const modifyInnerHTML = (id, player, text) => {
+    const changeName = document.getElementById(id);
+    if (player === '') {
+      changeName.innerHTML = text;
+    } else {
+      changeName.innerHTML = player.getName() + text;
+    }
+  };
+
+  const modifyInnerText = (selector, info, text) => {
+    document.querySelector(`.${selector}`).innerText = text + info;
+  };
+
   return {
     displayContinueToGame,
     displayInstruction,
@@ -70,6 +127,10 @@ const UI = () => {
     checkMarker,
     exitGame,
     showErrorMsg,
+    playGame,
+    validateData,
+    modifyInnerHTML,
+    modifyInnerText,
   };
 };
 
