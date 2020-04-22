@@ -3,8 +3,6 @@ import Game from './game';
 import gameBoard from './gameBoard';
 import Player from './player';
 
-const game = Game();
-
 
 const UI = () => {
   const displaySection = (clickedBtn, sectionToShow) => {
@@ -72,6 +70,8 @@ const UI = () => {
 
   // eslint-disable-next-line consistent-return
   const validateData = (e) => {
+    const game = Game();
+
     let playerArray = [];
     const playersInput = document.querySelectorAll('.playgame-section .form-control');
     const playersEmptyInput = Array.from(playersInput).filter((item) => item.value === '');

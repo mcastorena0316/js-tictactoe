@@ -84,7 +84,9 @@ const Game = () => {
     playAgain(player1);
   };
 
-  return { handleCellSwapTurns, getEleValue, playAgain };
+  return {
+    handleCellSwapTurns, getEleValue, playAgain, changeTurns, verifyWinnerorTie, checkWinner,
+  };
 };
 
 export default Game;
