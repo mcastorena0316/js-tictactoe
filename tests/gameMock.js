@@ -36,33 +36,41 @@ const GameMock = () => {
 
   const getEleValue = (eleId) => document.getElementById(eleId).value;
 
-  const handleCellSwapTurns = (player1, player2) => {
-    const markerOnBoard = document.querySelectorAll('.cell');
-    const changeName = document.getElementById('get-turn-msg');
-    let currentPlayer = player1;
-    markerOnBoard.forEach((element) => {
-      element.addEventListener('click', (e) => {
-        element.innerHTML = currentPlayer.getMarker();
-        element.disabled = true;
-
-        if (checkWinner(currentPlayer.getMarker())) {
-          changeName.innerHTML = `Congratulations, ${currentPlayer.getName()}, you won the game!`;
-          currentPlayer.increaseScore();
-          document.querySelector(`.${currentPlayer.getMarker()}`).innerText = `Score: ${currentPlayer.getScore()}`;
-          markerOnBoard.forEach((ele) => { ele.disabled = true; });
-        } else {
-          currentPlayer = currentPlayer === player1 ? player2 : player1;
-          changeName.innerHTML = `${currentPlayer.getName()}, is your turn!`;
-          if (tieMove()) {
-            changeName.innerHTML = 'The game is a draw';
-          }
-        }
-        playAgain(player1);
-        e.preventDefault();
-        return currentPlayer.getMarker();
-      });
-    });
+  const changeTurns = (currentPlayer, player1, player2) => {
+    currentPlayer = currentPlayer === player1 ? player2 : player1;
+    return currentPlayer;
   };
+
+  const handleCellSwapTurns = (player1, player2, button) => {
+    const markerOnBoard = button;
+    // const changeName = document.getElementById('get-turn-msg');
+    const currentPlayer = player1;
+    // markerOnBoard.forEach((element) => {
+    //   markerOnBoard.addEventListener('click', (e) => {
+    markerOnBoard.innerHTML = currentPlayer.getMarker();
+    markerOnBoard.disable = true;
+    // if (checkWinner(currentPlayer.getMarker())) {
+    // result= "won"
+    //   changeName.innerHTML = `Congratulations, ${currentPlayer.getName()}, you won the game!`;
+    //   currentPlayer.increaseScore();
+    //   document.querySelector(`.${currentPlayer.getMarker()}`).innerText = `Score: ${currentPlayer.getScore()}`;
+    //   markerOnBoard.forEach((ele) => { ele.disabled = true; });
+    // } else {
+    changeTurns(currentPlayer, player1, player2);
+    //   changeName.innerHTML = `${currentPlayer.getName()}, is your turn!`;
+    //   if (tieMove()) {
+    // changeName.innerHTML = 'The game is a draw';
+    // result= "Tie"
+    //   }
+    // }
+    // playAgain(player1);
+    // e.preventDefault();
+    return markerOnBoard.innerHTML;
+  };
+  //   );
+  // }
+  //     );
+  //   };
 
   const handleClickedSubmitPlayer = () => {
     function validateData(e) {
@@ -100,7 +108,7 @@ const GameMock = () => {
     validateform.addEventListener('click', handleClickedSubmitPlayer());
   };
 
-  return { playGame, handleCellSwapTurns };
+  return { playGame, handleCellSwapTurns, changeTurns };
 };
 
 export default GameMock;

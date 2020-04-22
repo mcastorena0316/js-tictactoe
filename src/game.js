@@ -36,6 +36,11 @@ const Game = () => {
 
   const getEleValue = (eleId) => document.getElementById(eleId).value;
 
+  const changeTurns = (currentPlayer, player1, player2) => {
+    currentPlayer = currentPlayer === player1 ? player2 : player1;
+    return currentPlayer;
+  };
+
   const handleCellSwapTurns = (player1, player2) => {
     const markerOnBoard = document.querySelectorAll('.cell');
     const changeName = document.getElementById('get-turn-msg');
@@ -52,7 +57,7 @@ const Game = () => {
           document.querySelector(`.${currentPlayer.getMarker()}`).innerText = `Score: ${currentPlayer.getScore()}`;
           markerOnBoard.forEach((ele) => { ele.disabled = true; });
         } else {
-          currentPlayer = currentPlayer === player1 ? player2 : player1;
+          currentPlayer = changeTurns(currentPlayer, player1, player2);
           changeName.innerHTML = `${currentPlayer.getName()}, is your turn!`;
           if (tieMove()) {
             changeName.innerHTML = 'The game is a draw';
