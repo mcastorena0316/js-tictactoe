@@ -90,7 +90,7 @@ const gameBoard = (() => {
   const renderBoard = () => {
     let cell = '';
     for (let i = 1; i <= 9; i += 1) {
-      cell += `<button class="cell cell-${i}" id="cell-${i}"></button>`;
+      cell += `<button class="cell cell-${i}" id="cell-${i}" data-id="${i}"></button>`;
     }
     document.getElementById('display-board').innerHTML = cell;
   };
@@ -98,6 +98,63 @@ const gameBoard = (() => {
 })();
 
 const Game = () => {
+
+  const compMove = () => {
+    let move = 0;
+    const allCellsArr = [];
+    const allCells = document.querySelectorAll('.cell');
+    allCells.forEach((cell) => {
+      const dataId = cell.getAttribute('data-id');
+      return allCellsArr.push(dataId);
+    });
+
+    const possibleMoves = allCellsArr.filter((element) => {
+      return document.getElementById(`cell-${element}`).innerText === '';
+    });
+
+    console.log(possibleMoves);
+
+    ['X', 'O'].forEach((marker) => {
+      possibleMoves.forEach((cell) => {
+        document.getElementById(`cell-${cell}`).innerText = marker;
+        if (checkWinner(marker)) {
+          move = cell;
+          return move;
+        }
+      });
+    });
+    // Math.floor(Math.random() * 10) + 1
+
+    const cornersOpen = [];
+    possibleMoves.forEach((cell) => {
+      if (['1', '3', '7', '9'].includes(cell)) {
+        cornersOpen.push(cell);
+      }
+    });
+
+    if (cornersOpen.length > 0) {
+      move = cornersOpen[Math.floor(Math.random() * (cornersOpen.length - 1))];
+      return move;
+    }
+
+    if (possibleMoves.includes(5)) {
+      move = 5;
+      return move;
+    }
+
+    const edgesOpen = [];
+    possibleMoves.forEach((cell) => {
+      if (['2', '4', '6', '8'].includes(cell)) {
+        edgesOpen.push(cell);
+      }
+    });
+
+    if (edgesOpen.length > 0) {
+      move = edgesOpen[Math.floor(Math.random() * (edgesOpen.length - 1))];
+    }
+    return move;
+  };
+
   const winningCombinations = () => {
     const winningArray = [
       [1, 2, 3], [4, 5, 6], [7, 8, 9],
@@ -122,10 +179,19 @@ const Game = () => {
     let currentPlayer = player1;
     changeName.innerHTML = `${currentPlayer.getName()}, is your turn!`;
     markerOnBoard.forEach((element) => {
+
+
+      // let element = '';
+      // if (currentPlayer === player2) {
+      //   element = document.getElementById(`cell-${compMove()}`);
+      //   element.innerHTML = player2.getMarker();
+      // }
+      // element = ele;
+
       element.addEventListener('click', (e) => {
         element.innerHTML = currentPlayer.getMarker();
         element.disabled = true;
-
+        console.log(compMove())
         if (checkWinner(currentPlayer.getMarker())) {
           changeName.innerHTML = `Congratulations, ${currentPlayer.getName()}, you won the game!`;
           currentPlayer.increaseScore();
@@ -141,6 +207,7 @@ const Game = () => {
 
         e.preventDefault();
       });
+
     });
   };
 
