@@ -1,92 +1,103 @@
+import Player from './player';
+import gameBoard from './gameBoard';
 // eslint-disable-next-line import/no-cycle
 import UI from './ui';
+import Logic from './logic';
+
+const logic = Logic();
+const ui = UI();
 
 const Game = () => {
-  const winningCombinations = () => {
-    const winningArray = [
-      [1, 2, 3], [4, 5, 6], [7, 8, 9],
-      [1, 4, 7], [2, 5, 8], [3, 6, 9],
-      [1, 5, 9], [3, 5, 7],
-    ];
-    return winningArray;
-  };
-
-  const checkWinner = (marker) => winningCombinations().some((combination) => combination.every((combinationInner) => document.getElementById(`cell-${combinationInner}`).innerText === marker));
-
-  const tieMove = () => {
-    const boardsChecked = document.querySelectorAll('.cell');
-    return Array.from(boardsChecked).every((element) => element.innerText !== '');
-  };
-
-  const playAgain = (player1) => {
-    const playAgainBtn = document.getElementById('play-again-btn');
-
-    function resetGame() {
-      const boardReset = document.querySelectorAll('.cell');
-      boardReset.forEach((x) => {
-        x.innerText = '';
-        x.disabled = false;
-      });
-      const ui = UI();
-      ui.modifyInnerHTML('get-turn-msg', player1, ' is your turn!');
-    }
-    playAgainBtn.addEventListener('click', resetGame);
-    return resetGame();
-  };
-
   const getEleValue = (eleId) => document.getElementById(eleId).value;
 
-  const changeTurns = (currentPlayer, player1, player2) => {
-    currentPlayer = currentPlayer === player1 ? player2 : player1;
-    return currentPlayer;
+  const getPlayerInfo = () => {
+    const player1 = Player(getEleValue('player1-name'), getEleValue('player1-marker'));
+    const player2 = Player(getEleValue('player2-name'), getEleValue('player2-marker'));
+    return [player1, player2];
   };
 
-  const updateBoard = (currentPlayer, element) => {
-    element.innerHTML = currentPlayer.getMarker();
-    element.disabled = true;
-  };
-
-  const verifyWinnerorTie = (currentPlayer) => {
-    let result = '';
-    if (checkWinner(currentPlayer.getMarker())) {
+  const gameTurns = (currentPlayer, player1, player2) => {
+    if (logic.thereIsWinner(currentPlayer.getMarker())) {
+      ui.msgAlert(`Congratulations, ${currentPlayer.getName()}, you won the game!`);
       currentPlayer.increaseScore();
-      result = 'won';
-    } else if (tieMove()) {
-      result = 'tie';
+      document.querySelector(`.${currentPlayer.getMarker()}`).innerText = `Score: ${currentPlayer.getScore()}`;
+      const markerOnBoard = document.querySelectorAll('.cell');
+      markerOnBoard.forEach((ele) => { ele.disabled = true; });
+    } else if (logic.tieMove()) {
+      ui.msgAlert('The game is a draw');
+    } else {
+      currentPlayer = logic.changeTurns(currentPlayer, player1, player2);
+      ui.msgAlert(`${currentPlayer.getName()}, is your turn!`);
     }
-
-    return result;
   };
+
   const handleCellSwapTurns = (player1, player2) => {
-    const ui = UI();
-    const markerOnBoard = document.querySelectorAll('.cell');
+    let board = logic.boardArray;
+    gameBoard.renderBoard(board);
     let currentPlayer = player1;
-    ui.modifyInnerHTML('get-turn-msg', currentPlayer, ' is your turn!');
+    ui.msgAlert(`${currentPlayer.getName()}, is your turn!`);
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('cell')) {
+        const elementId = e.target.id.split('-')[1];
+        logic.placeMarker(elementId, currentPlayer.getMarker());
+        gameBoard.renderBoard(board);
+        gameTurns(currentPlayer, player1, player2);
+        currentPlayer = logic.changeTurns(currentPlayer, player1, player2);
 
-    markerOnBoard.forEach((element) => {
-      element.addEventListener('click', (e) => {
-        updateBoard(currentPlayer, element);
+        const filledCell = logic.getFilledCell();
+        filledCell.forEach((item) => {
+          document.getElementById(`cell-${item}`).disabled = true;
+        });
+      }
 
-        if (verifyWinnerorTie(currentPlayer) === 'won') {
-          ui.modifyInnerHTML('get-turn-msg', currentPlayer, ' Congratulations! You won the game');
-          ui.modifyInnerText(currentPlayer.getMarker(), currentPlayer.getScore(), 'Score: ');
-          markerOnBoard.forEach((ele) => { ele.disabled = true; });
-        } else if (verifyWinnerorTie(currentPlayer) === 'tie') {
-          ui.modifyInnerHTML('get-turn-msg', '', ' The game is a draw');
-        } else {
-          currentPlayer = changeTurns(currentPlayer, player1, player2);
-          ui.modifyInnerHTML('get-turn-msg', currentPlayer, ' is your turn!');
-        }
-
-        e.preventDefault();
-      });
+      if (e.target.classList.contains('play-again-btn')) {
+        const markerOnBoard = document.querySelectorAll('.cell');
+        markerOnBoard.forEach((ele) => { ele.disabled = false; });
+        board = logic.resetGame();
+        gameBoard.renderBoard(board);
+        currentPlayer = player1;
+        ui.msgAlert(`${player1.getName()}, is your turn!`);
+      }
     });
-    playAgain(player1);
   };
 
-  return {
-    handleCellSwapTurns, getEleValue, playAgain, changeTurns, verifyWinnerorTie, checkWinner,
+  const populateInputWithValues = () => {
+    const player1 = getPlayerInfo()[0];
+    const player2 = getPlayerInfo()[1];
+    const playersInputs = document.querySelectorAll('#boardgame-section .form-control');
+    Array.from(playersInputs).forEach((ele) => {
+      const { id } = ele;
+      ele.innerText = document.querySelector(`.playgame-section #${id}`).value;
+    });
+
+    document.getElementById('player1-score').classList.add(`${player1.getMarker()}`);
+    document.getElementById('player2-score').classList.add(`${player2.getMarker()}`);
   };
+
+  const handleClickedSubmitPlayer = () => {
+    function validateData() {
+      const playersInput = document.querySelectorAll('.playgame-section .form-control');
+      const playersEmptyInput = Array.from(playersInput).filter((item) => item.value === '');
+      if (playersEmptyInput.length > 0) {
+        const ui = UI();
+        ui.showErrorMsg('.game-error-msg', 'error-inputs', 'Please fill all inputs');
+      } else {
+        gameBoard.renderBoard(logic.boardArray);
+        ui.openBoard();
+        const player1 = getPlayerInfo()[0];
+        const player2 = getPlayerInfo()[1];
+        populateInputWithValues();
+        handleCellSwapTurns(player1, player2);
+      }
+    }
+    return validateData;
+  };
+
+  const playGame = () => {
+    const validateform = document.getElementById('set-player-btn');
+    validateform.addEventListener('click', handleClickedSubmitPlayer());
+  };
+  return { playGame };
 };
 
 export default Game;
