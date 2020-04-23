@@ -14,6 +14,7 @@ const Logic = (() => {
     return winningArray;
   };
 
+  // eslint-disable-next-line max-len
   const thereIsWinner = (marker) => winningCombinations().some((combination) => combination.every((combinationInner) => boardArray[combinationInner - 1] === marker));
 
   const tieMove = () => boardArray.every((item) => item !== '');
@@ -25,13 +26,12 @@ const Logic = (() => {
 
   const resetGame = () => {
     boardArray = ['', '', '', '', '', '', '', '', ''];
-    // boardArray.forEach(() => {
-    //   boardArray.push('');
-    // });
     return boardArray;
   };
 
-  return { boardArray, winningCombinations, thereIsWinner, changeTurns, placeMarker, tieMove, resetGame };
+  return {
+    boardArray, winningCombinations, thereIsWinner, changeTurns, placeMarker, tieMove, resetGame,
+  };
 });
 
 export default Logic;

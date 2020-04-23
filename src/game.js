@@ -28,8 +28,6 @@ const Game = () => {
       currentPlayer = logic.changeTurns(currentPlayer, player1, player2);
       ui.msgAlert(`${currentPlayer.getName()}, is your turn!`);
     }
-
-    console.log(currentPlayer.getMarker())
   };
 
   const handleCellSwapTurns = (player1, player2, board) => {
