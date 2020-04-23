@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> refined-testing
 const Player = (name, marker) => {
   let score = 0;
   const getName = () => name;

@@ -16,6 +16,14 @@ const UI = () => {
     });
   };
 
+<<<<<<< HEAD
+=======
+  const openBoard = () => {
+    document.getElementById('boardgame-section').style.display = 'block';
+    document.getElementById('playgame-section').style.display = 'none';
+  };
+
+>>>>>>> refined-testing
   const displayContinueToGame = () => {
     displaySection('start-btn', 'continue-to-game');
   };
@@ -62,6 +70,14 @@ const UI = () => {
     displaySection('exit-game-btn', 'goodbye-section');
   };
 
+<<<<<<< HEAD
+=======
+  const msgAlert = (msg) => {
+    const changeName = document.getElementById('get-turn-msg');
+    changeName.innerHTML = msg;
+  };
+
+>>>>>>> refined-testing
   return {
     displayContinueToGame,
     displayInstruction,
@@ -70,6 +86,11 @@ const UI = () => {
     checkMarker,
     exitGame,
     showErrorMsg,
+<<<<<<< HEAD
+=======
+    openBoard,
+    msgAlert,
+>>>>>>> refined-testing
   };
 };
 
