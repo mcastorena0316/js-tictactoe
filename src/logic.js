@@ -23,15 +23,37 @@ const Logic = (() => {
     return currentPlayer;
   };
 
+  const getFilledCell = () => {
+    const filledCell = [];
+    boardArray.forEach((item, index) => {
+      if (item !== '') {
+        filledCell.push(index + 1);
+      }
+    });
+    return filledCell;
+  };
+
+  const isEmpty = () => boardArray.every((item) => item === '');
+
   const resetGame = () => {
-    boardArray = ['', '', '', '', '', '', '', '', ''];
-    // boardArray.forEach(() => {
-    //   boardArray.push('');
-    // });
+    boardArray = [];
+    for (let i = 0; i < 9; i += 1) {
+      boardArray.push('');
+    }
     return boardArray;
   };
 
-  return { boardArray, winningCombinations, thereIsWinner, changeTurns, placeMarker, tieMove, resetGame };
+  return {
+    boardArray,
+    winningCombinations,
+    thereIsWinner,
+    changeTurns,
+    placeMarker,
+    tieMove,
+    resetGame,
+    getFilledCell,
+    isEmpty,
+  };
 });
 
 export default Logic;

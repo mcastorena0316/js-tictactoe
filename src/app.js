@@ -11,4 +11,4 @@ ui.exitGame();
 
 const game = Game();
 game.playGame();
-game.playAgain();
+// game.playAgain();

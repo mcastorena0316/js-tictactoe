@@ -28,11 +28,10 @@ const Game = () => {
       currentPlayer = logic.changeTurns(currentPlayer, player1, player2);
       ui.msgAlert(`${currentPlayer.getName()}, is your turn!`);
     }
-
-    console.log(currentPlayer.getMarker())
   };
 
-  const handleCellSwapTurns = (player1, player2, board) => {
+  const handleCellSwapTurns = (player1, player2) => {
+    let board = logic.boardArray;
     gameBoard.renderBoard(board);
     let currentPlayer = player1;
     ui.msgAlert(`${currentPlayer.getName()}, is your turn!`);
@@ -43,19 +42,20 @@ const Game = () => {
         gameBoard.renderBoard(board);
         gameTurns(currentPlayer, player1, player2);
         currentPlayer = logic.changeTurns(currentPlayer, player1, player2);
-        document.getElementById(`cell-${elementId}`).disabled = true;
-      }
-    });
-  };
 
-  const playAgain = () => {
-    const playAgainBtn = document.getElementById('play-again-btn');
-    playAgainBtn.addEventListener('click', () => {
-      const player1 = getPlayerInfo()[0];
-      const player2 = getPlayerInfo()[1];
-      const markerOnBoard = document.querySelectorAll('.cell');
-      markerOnBoard.forEach((ele) => { ele.disabled = false; });
-      handleCellSwapTurns(player1, player2, logic.resetGame());
+        const filledCell = logic.getFilledCell();
+        filledCell.forEach((item) => {
+          document.getElementById(`cell-${item}`).disabled = true;
+        });
+      }
+
+      if (e.target.classList.contains('play-again-btn')) {
+        const markerOnBoard = document.querySelectorAll('.cell');
+        markerOnBoard.forEach((ele) => { ele.disabled = false; });
+        board = logic.resetGame();
+        gameBoard.renderBoard(board);
+        ui.msgAlert(`${player1.getName()}, is your turn!`);
+      }
     });
   };
 
@@ -85,7 +85,7 @@ const Game = () => {
         const player1 = getPlayerInfo()[0];
         const player2 = getPlayerInfo()[1];
         populateInputWithValues();
-        handleCellSwapTurns(player1, player2, logic.boardArray);
+        handleCellSwapTurns(player1, player2);
       }
     }
     return validateData;
@@ -96,7 +96,7 @@ const Game = () => {
     validateform.addEventListener('click', handleClickedSubmitPlayer());
   };
 
-  return { playGame, playAgain };
+  return { playGame };
 };
 
 export default Game;
