@@ -1,6 +1,5 @@
 # Tic Tac Toe With Javascript
 
-<div align="center"><img src="Images/tictactoe.jpg"></div>
 
 ## Table of Contents
 
@@ -21,6 +20,9 @@ Live version of the project: [Live version](https://raw.githack.com/mcastorena03
 Project Link: [JS-TICTACTOE](https://github.com/mcastorena0316/js-tictactoe)
 
 Link for project specifications: [Odin-Project](https://www.theodinproject.com/courses/javascript/lessons/tic-tac-toe-javascript)
+
+<div align="center"><img src="Images/tictactoe.jpg"></div>
+
 
 ### Built With
 
