@@ -14,6 +14,7 @@ const Logic = (() => {
     return winningArray;
   };
 
+  // eslint-disable-next-line max-len
   const thereIsWinner = (marker) => winningCombinations().some((combination) => combination.every((combinationInner) => boardArray[combinationInner - 1] === marker));
 
   const tieMove = () => boardArray.every((item) => item !== '');
