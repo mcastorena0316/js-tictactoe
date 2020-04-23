@@ -15,7 +15,7 @@
 In this project, we recreate the game TicTacToe to play in a browser using Javascript. This game is for two players, who take turns for adding the marker 'X' or 'O' in spaces of a 3×3 board. The player who first place three of their marks in a horizontal, vertical, or diagonal row is the winner. 
 
 
-Live version of the project: [Live version](https://raw.githack.com/mcastorena0316/js-tictactoe/logic/index.html)
+Live version of the project: [Live version](https://rawcdn.githack.com/mcastorena0316/js-tictactoe/77553ba2dc278ab98519ffd0cb98cf8102b6c970/index.html)
 
 Project Link: [JS-TICTACTOE](https://github.com/mcastorena0316/js-tictactoe)
 
