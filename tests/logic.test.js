@@ -70,28 +70,32 @@ test('player 2 should not be the winner', () => {
   expect(logic.thereIsWinner(player2.getMarker())).toBeFalsy();
 });
 
-test('check if a player won', () => {
-  // By row
-  [1, 2, 3].forEach((item) => {
-    logic.placeMarker(item, 'O');
+describe('Test if someone wins', () => {
+  test('check if a player won by row', () => {
+    [1, 2, 3].forEach((item) => {
+      logic.placeMarker(item, 'O');
+    });
+    expect(logic.thereIsWinner(player2.getMarker())).toBeTruthy();
+    logic.resetGame();
   });
-  expect(logic.thereIsWinner(player2.getMarker())).toBeTruthy();
-  logic.resetGame();
 
-  // By column
-  [2, 5, 8].forEach((item) => {
-    logic.placeMarker(item, 'X');
+  test('check if a player won by column', () => {
+    [2, 5, 8].forEach((item) => {
+      logic.placeMarker(item, 'X');
+    });
+    expect(logic.thereIsWinner(player1.getMarker())).toBeTruthy();
+    logic.resetGame();
   });
-  expect(logic.thereIsWinner(player1.getMarker())).toBeTruthy();
-  logic.resetGame();
 
-  // By diagonal
-  [3, 5, 7].forEach((item) => {
-    logic.placeMarker(item, 'X');
+  test('check if a player won by diagonal', () => {
+    [3, 5, 7].forEach((item) => {
+      logic.placeMarker(item, 'X');
+    });
+    expect(logic.thereIsWinner(player1.getMarker())).toBeTruthy();
+    logic.resetGame();
   });
-  expect(logic.thereIsWinner(player1.getMarker())).toBeTruthy();
-  logic.resetGame();
 });
+
 
 test('should be a tie', () => {
   [1, 3, 4, 5, 8].forEach((item) => {
