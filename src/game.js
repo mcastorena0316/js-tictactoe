@@ -54,6 +54,7 @@ const Game = () => {
         markerOnBoard.forEach((ele) => { ele.disabled = false; });
         board = logic.resetGame();
         gameBoard.renderBoard(board);
+        currentPlayer = player1;
         ui.msgAlert(`${player1.getName()}, is your turn!`);
       }
     });
