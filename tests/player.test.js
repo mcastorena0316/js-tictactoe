@@ -11,8 +11,6 @@ test('should return the name of the player', () => {
 test('should return the marker of the player', () => {
   expect(player1.getMarker()).toBe('X');
   expect(player2.getMarker()).toBe('O');
-<<<<<<< HEAD
-=======
 });
 
 test('should increment player1 score', () => {
@@ -27,5 +25,4 @@ test('should increment player2 score', () => {
     player2.increaseScore();
   }
   expect(player2.getScore()).toBe(2);
->>>>>>> refined-testing
 });
